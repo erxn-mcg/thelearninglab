@@ -1,0 +1,1904 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Learning Lab — The newsletter that makes you a lifelong learner</title>
+  <meta name="description" content="Join 1,000+ readers getting learning insights every morning. Covering everything from neuroscience to AI.">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Poppins:wght@500;600&family=Crimson+Text:wght@600&display=swap" rel="stylesheet">
+  <style>
+    /* ==============================
+       DESIGN TOKENS
+       ============================== */
+    :root {
+      /* Color — Primitives */
+      --white: #FFFFFF;
+      --cream: #FAF8F5;
+      --cream-dark: #F2EDE8;
+      --gray-100: #E8E4DF;
+      --gray-200: #D1CBC3;
+      --gray-400: #9B9488;
+      --gray-600: #6B6459;
+      --gray-800: #3D3830;
+      --ink: #1A1714;
+      --pomegranate: #C0392B;
+      --pomegranate-hover: #A93226;
+      --pomegranate-light: #FADBD8;
+
+      /* Color — Semantic */
+      --color-bg-primary: var(--cream);
+      --color-bg-secondary: var(--white);
+      --color-bg-accent: var(--ink);
+      --color-bg-highlight: var(--pomegranate-light);
+      --color-text-primary: var(--ink);
+      --color-text-secondary: var(--gray-600);
+      --color-text-tertiary: var(--gray-400);
+      --color-text-inverse: var(--cream);
+      --color-action-primary: var(--pomegranate);
+      --color-action-primary-hover: var(--pomegranate-hover);
+      --color-border: var(--gray-100);
+      --color-border-strong: var(--gray-200);
+
+      /* Spacing — Base 8 */
+      --space-1: 4px;
+      --space-2: 8px;
+      --space-3: 12px;
+      --space-4: 16px;
+      --space-5: 24px;
+      --space-6: 32px;
+      --space-8: 48px;
+      --space-10: 64px;
+      --space-12: 80px;
+      --space-16: 128px;
+
+      /* Typography */
+      --font-display: 'Instrument Serif', Georgia, serif;
+      --font-body: 'Inter', -apple-system, sans-serif;
+
+      --text-caption: 0.75rem;
+      --text-sm: 0.875rem;
+      --text-base: 1rem;
+      --text-lg: 1.125rem;
+      --text-xl: 1.25rem;
+      --text-2xl: 1.5rem;
+      --text-3xl: 2rem;
+      --text-4xl: 2.75rem;
+      --text-5xl: 3.5rem;
+      --text-6xl: 4.5rem;
+
+      /* Elevation */
+      --shadow-sm: 0 1px 2px rgba(26,23,20,0.05);
+      --shadow-md: 0 4px 12px rgba(26,23,20,0.08);
+      --shadow-lg: 0 8px 30px rgba(26,23,20,0.12);
+
+      /* Radius */
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 16px;
+      --radius-pill: 999px;
+
+      /* Motion */
+      --duration-fast: 120ms;
+      --duration-base: 200ms;
+      --duration-slow: 350ms;
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+
+      /* Layout */
+      --max-width: 1200px;
+      --max-width-narrow: 680px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    /* ==============================
+       RESET & BASE
+       ============================== */
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+      font-family: var(--font-body);
+      font-size: var(--text-base);
+      line-height: 1.6;
+      color: var(--color-text-primary);
+      background-color: var(--color-bg-primary);
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* ==============================
+       UTILITIES
+       ============================== */
+    .container {
+      width: 100%;
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 var(--space-5);
+    }
+
+    .container--narrow {
+      max-width: var(--max-width-narrow);
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0,0,0,0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    /* ==============================
+       SUBSCRIBE FORM (reused)
+       ============================== */
+    .subscribe-form {
+      display: flex;
+      gap: var(--space-3);
+      width: 100%;
+      max-width: 480px;
+    }
+
+    .subscribe-form__input {
+      flex: 1;
+      padding: var(--space-3) var(--space-4);
+      font-family: var(--font-body);
+      font-size: var(--text-base);
+      color: var(--color-text-primary);
+      background: var(--color-bg-secondary);
+      border: 1.5px solid var(--color-border-strong);
+      border-radius: var(--radius-pill);
+      outline: none;
+      transition: border-color var(--duration-base) var(--ease-out),
+                  box-shadow var(--duration-base) var(--ease-out);
+    }
+
+    .subscribe-form__input::placeholder {
+      color: var(--color-text-tertiary);
+    }
+
+    .subscribe-form__input:focus {
+      border-color: var(--color-action-primary);
+      box-shadow: 0 0 0 3px var(--color-bg-highlight);
+    }
+
+    .subscribe-form__btn {
+      padding: var(--space-3) var(--space-6);
+      font-family: var(--font-body);
+      font-size: var(--text-base);
+      font-weight: 600;
+      color: var(--white);
+      background: var(--color-action-primary);
+      border: none;
+      border-radius: var(--radius-pill);
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background var(--duration-fast) var(--ease-out),
+                  transform var(--duration-fast) var(--ease-out);
+    }
+
+    .subscribe-form__btn:hover {
+      background: var(--color-action-primary-hover);
+      transform: translateY(-1px);
+    }
+
+    .subscribe-form__btn:active {
+      transform: translateY(0);
+    }
+
+    .subscribe-form__btn:focus-visible {
+      outline: 2px solid var(--color-action-primary);
+      outline-offset: 2px;
+    }
+
+    @media (max-width: 480px) {
+      .subscribe-form {
+        flex-direction: column;
+      }
+      .subscribe-form__btn {
+        width: 100%;
+        text-align: center;
+      }
+    }
+
+    /* ==============================
+       NAV
+       ============================== */
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: rgba(250,248,245,0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--color-border);
+      transition: background var(--duration-base) var(--ease-out);
+    }
+
+    .nav__inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+    }
+
+    .nav__logo {
+      font-family: var(--font-display);
+      font-size: var(--text-xl);
+      font-weight: 400;
+      letter-spacing: -0.01em;
+    }
+
+    .nav__links {
+      display: flex;
+      align-items: center;
+      gap: var(--space-6);
+      list-style: none;
+    }
+
+    .nav__link {
+      font-size: var(--text-sm);
+      font-weight: 500;
+      color: var(--color-text-secondary);
+      transition: color var(--duration-fast) var(--ease-out);
+    }
+
+    .nav__link:hover,
+    .nav__link:focus-visible {
+      color: var(--color-text-primary);
+    }
+
+    .nav__cta {
+      padding: var(--space-2) var(--space-5);
+      font-size: var(--text-sm);
+      font-weight: 600;
+      color: var(--white);
+      background: var(--color-action-primary);
+      border-radius: var(--radius-pill);
+      transition: background var(--duration-fast) var(--ease-out);
+    }
+
+    .nav__cta:hover {
+      background: var(--color-action-primary-hover);
+    }
+
+    .nav__cta:focus-visible {
+      outline: 2px solid var(--color-action-primary);
+      outline-offset: 2px;
+    }
+
+    .nav__mobile-toggle {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: var(--space-2);
+      color: var(--color-text-primary);
+    }
+
+    @media (max-width: 768px) {
+      .nav__links {
+        display: none;
+      }
+      .nav__links.is-open {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 64px;
+        left: 0;
+        right: 0;
+        background: var(--color-bg-primary);
+        border-bottom: 1px solid var(--color-border);
+        padding: var(--space-5);
+        gap: var(--space-4);
+      }
+      .nav__mobile-toggle {
+        display: block;
+      }
+    }
+
+    /* ==============================
+       HERO
+       ============================== */
+    .hero {
+      padding: var(--space-16) 0 var(--space-12);
+      text-align: center;
+    }
+
+    .hero__badge {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      padding: var(--space-1) var(--space-4);
+      font-size: var(--text-sm);
+      font-weight: 500;
+      color: var(--color-text-secondary);
+      background: var(--color-bg-secondary);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-pill);
+      margin-bottom: var(--space-6);
+    }
+
+    .hero__badge-dot {
+      width: 6px;
+      height: 6px;
+      background: #4CAF50;
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+
+    .hero__title {
+      font-family: var(--font-display);
+      font-size: var(--text-6xl);
+      font-weight: 400;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      color: var(--color-text-primary);
+      max-width: 800px;
+      margin: 0 auto var(--space-5);
+    }
+
+    .hero__title em {
+      font-style: italic;
+      color: var(--color-action-primary);
+    }
+
+    .hero__subtitle {
+      font-size: var(--text-lg);
+      line-height: 1.6;
+      color: var(--color-text-secondary);
+      max-width: 520px;
+      margin: 0 auto var(--space-8);
+    }
+
+    .hero__form-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--space-3);
+    }
+
+    .hero__proof {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      font-size: var(--text-sm);
+      color: var(--color-text-tertiary);
+    }
+
+    .hero__avatars {
+      display: flex;
+    }
+
+    .hero__avatar {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      border: 2px solid var(--color-bg-primary);
+      margin-left: -8px;
+      object-fit: cover;
+      background: var(--gray-200);
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--gray-600);
+    }
+
+    .hero__avatar:first-child {
+      margin-left: 0;
+    }
+
+    @media (max-width: 768px) {
+      .hero {
+        padding: var(--space-12) 0 var(--space-10);
+      }
+      .hero__title {
+        font-size: var(--text-4xl);
+      }
+      .hero__subtitle {
+        font-size: var(--text-base);
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero__title {
+        font-size: var(--text-3xl);
+      }
+    }
+
+    /* ==============================
+       FEATURED POSTS / AS SEEN IN
+       ============================== */
+    .featured {
+      padding: var(--space-8) 0;
+      border-top: 1px solid var(--color-border);
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .featured__label {
+      text-align: center;
+      font-size: var(--text-sm);
+      font-weight: 500;
+      color: var(--color-text-tertiary);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: var(--space-6);
+    }
+
+    .featured__logos {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-10);
+      flex-wrap: wrap;
+      opacity: 0.4;
+    }
+
+    .featured__logo {
+      font-family: var(--font-display);
+      font-size: var(--text-xl);
+      color: var(--color-text-primary);
+      white-space: nowrap;
+    }
+
+    .google { font-family: 'Poppins', sans-serif; }
+    .cambridge { font-family: 'Crimson Text', serif; }
+    .openai { font-family: 'Inter', sans-serif; }
+    .shopify { font-family: 'Poppins', sans-serif; font-weight: 600; }
+    .harvard { font-family: 'Libre Baskerville', serif; }
+    .microsoft { font-family: 'Inter', sans-serif; }
+
+    @media (max-width: 768px) {
+      .featured__logos {
+        gap: var(--space-6);
+      }
+      .featured__logo {
+        font-size: var(--text-lg);
+      }
+    }
+
+    /* ==============================
+       ABOUT
+       ============================== */
+    .about {
+      padding: var(--space-12) 0;
+    }
+
+    .about__inner {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: var(--space-10);
+      align-items: center;
+    }
+
+    .about__image-wrapper {
+      position: relative;
+      aspect-ratio: 4 / 5;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      background: var(--gray-200);
+    }
+
+    .about__image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .about__image-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-display);
+      font-size: var(--text-3xl);
+      color: var(--gray-400);
+    }
+
+    .about__label {
+      font-size: var(--text-sm);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--color-action-primary);
+      margin-bottom: var(--space-4);
+    }
+
+    .about__title {
+      font-family: var(--font-display);
+      font-size: var(--text-4xl);
+      font-weight: 400;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      margin-bottom: var(--space-5);
+    }
+
+    .about__text {
+      font-size: var(--text-lg);
+      line-height: 1.7;
+      color: var(--color-text-secondary);
+      margin-bottom: var(--space-6);
+    }
+
+    .about__stats {
+      display: flex;
+      gap: var(--space-8);
+      padding-top: var(--space-6);
+      border-top: 1px solid var(--color-border);
+    }
+
+    .about__stat-number {
+      font-family: var(--font-display);
+      font-size: var(--text-3xl);
+      line-height: 1;
+      margin-bottom: var(--space-1);
+    }
+
+    .about__stat-label {
+      font-size: var(--text-sm);
+      color: var(--color-text-tertiary);
+    }
+
+    @media (max-width: 768px) {
+      .about__inner {
+        grid-template-columns: 1fr;
+        gap: var(--space-8);
+      }
+      .about__image-wrapper {
+        aspect-ratio: 16 / 10;
+      }
+      .about__title {
+        font-size: var(--text-3xl);
+      }
+    }
+
+    /* ==============================
+       WHAT YOU GET
+       ============================== */
+    .features {
+      padding: var(--space-12) 0;
+      background: var(--color-bg-secondary);
+      border-top: 1px solid var(--color-border);
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .features__header {
+      text-align: center;
+      margin-bottom: var(--space-10);
+    }
+
+    .features__label {
+      font-size: var(--text-sm);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--color-action-primary);
+      margin-bottom: var(--space-4);
+    }
+
+    .features__title {
+      font-family: var(--font-display);
+      font-size: var(--text-4xl);
+      font-weight: 400;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+    }
+
+    .features__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-6);
+    }
+
+    .feature-card {
+      padding: var(--space-8) var(--space-6);
+      background: var(--color-bg-primary);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      transition: box-shadow var(--duration-base) var(--ease-out),
+                  transform var(--duration-base) var(--ease-out);
+    }
+
+    .feature-card:hover {
+      box-shadow: var(--shadow-md);
+      transform: translateY(-2px);
+    }
+
+    .feature-card__icon {
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      background: var(--color-bg-highlight);
+      border-radius: var(--radius-sm);
+      margin-bottom: var(--space-5);
+    }
+
+    .feature-card__title {
+      font-family: var(--font-display);
+      font-size: var(--text-xl);
+      margin-bottom: var(--space-3);
+    }
+
+    .feature-card__text {
+      font-size: var(--text-sm);
+      line-height: 1.6;
+      color: var(--color-text-secondary);
+    }
+
+    @media (max-width: 768px) {
+      .features__grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* ==============================
+       LATEST POSTS
+       ============================== */
+    .posts {
+      padding: var(--space-12) 0;
+    }
+
+    .posts__header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-bottom: var(--space-8);
+    }
+
+    .posts__label {
+      font-size: var(--text-sm);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--color-action-primary);
+      margin-bottom: var(--space-3);
+    }
+
+    .posts__title {
+      font-family: var(--font-display);
+      font-size: var(--text-4xl);
+      font-weight: 400;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+    }
+
+    .posts__archive-link {
+      font-size: var(--text-sm);
+      font-weight: 600;
+      color: var(--color-action-primary);
+      padding-bottom: 1px;
+      border-bottom: 1.5px solid currentColor;
+      transition: opacity var(--duration-fast) var(--ease-out);
+      white-space: nowrap;
+    }
+
+    .posts__archive-link:hover {
+      opacity: 0.7;
+    }
+
+    .posts__list {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .post-item {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: var(--space-5);
+      align-items: baseline;
+      padding: var(--space-5) 0;
+      border-bottom: 1px solid var(--color-border);
+      transition: background var(--duration-fast) var(--ease-out);
+    }
+
+    .post-item:first-child {
+      border-top: 1px solid var(--color-border);
+    }
+
+    .post-item:hover {
+      background: var(--color-bg-secondary);
+      margin: 0 calc(-1 * var(--space-4));
+      padding-left: var(--space-4);
+      padding-right: var(--space-4);
+      border-radius: var(--radius-sm);
+    }
+
+    .post-item__date {
+      font-size: var(--text-sm);
+      font-variant-numeric: tabular-nums;
+      color: var(--color-text-tertiary);
+      min-width: 100px;
+    }
+
+    .post-item__title {
+      font-family: var(--font-display);
+      font-size: var(--text-xl);
+      line-height: 1.3;
+    }
+
+    .post-item__arrow {
+      font-size: var(--text-lg);
+      color: var(--color-text-tertiary);
+      transition: transform var(--duration-fast) var(--ease-out),
+                  color var(--duration-fast) var(--ease-out);
+    }
+
+    .post-item:hover .post-item__arrow {
+      transform: translateX(4px);
+      color: var(--color-action-primary);
+    }
+
+    @media (max-width: 768px) {
+      .posts__header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--space-3);
+      }
+      .post-item {
+        grid-template-columns: 1fr auto;
+      }
+      .post-item__date {
+        grid-column: 1 / -1;
+        font-size: var(--text-caption);
+      }
+    }
+
+    /* ==============================
+       TESTIMONIALS
+       ============================== */
+    .testimonials {
+      padding: var(--space-12) 0;
+      background: var(--color-bg-accent);
+      color: var(--color-text-inverse);
+    }
+
+    .testimonials__header {
+      text-align: center;
+      margin-bottom: var(--space-10);
+    }
+
+    .testimonials__label {
+      font-size: var(--text-sm);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--pomegranate);
+      margin-bottom: var(--space-4);
+    }
+
+    .testimonials__title {
+      font-family: var(--font-display);
+      font-size: var(--text-4xl);
+      font-weight: 400;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+    }
+
+    .testimonials__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-5);
+    }
+
+    .testimonial-card {
+      padding: var(--space-6);
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: var(--radius-md);
+      transition: background var(--duration-base) var(--ease-out);
+    }
+
+    .testimonial-card:hover {
+      background: rgba(255,255,255,0.1);
+    }
+
+    .testimonial-card__stars {
+      margin-bottom: var(--space-4);
+      color: #F5A623;
+      font-size: var(--text-sm);
+      letter-spacing: 2px;
+    }
+
+    .testimonial-card__quote {
+      font-size: var(--text-base);
+      line-height: 1.7;
+      color: rgba(250,248,245,0.85);
+      margin-bottom: var(--space-5);
+    }
+
+    .testimonial-card__author {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+    }
+
+    .testimonial-card__avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      font-size: var(--text-sm);
+      color: var(--pomegranate);
+    }
+
+    .testimonial-card__name {
+      font-weight: 600;
+      font-size: var(--text-sm);
+    }
+
+    .testimonial-card__handle {
+      font-size: var(--text-caption);
+      color: rgba(250,248,245,0.5);
+    }
+
+    @media (max-width: 768px) {
+      .testimonials__grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* ==============================
+       INLINE CTA BAND
+       ============================== */
+    .cta-band {
+      padding: var(--space-12) 0;
+      text-align: center;
+      background: var(--color-bg-secondary);
+      border-top: 1px solid var(--color-border);
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .cta-band__title {
+      font-family: var(--font-display);
+      font-size: var(--text-4xl);
+      font-weight: 400;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      margin-bottom: var(--space-4);
+    }
+
+    .cta-band__subtitle {
+      font-size: var(--text-lg);
+      color: var(--color-text-secondary);
+      margin-bottom: var(--space-8);
+      max-width: 480px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .cta-band__form-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--space-3);
+    }
+
+    .cta-band__note {
+      font-size: var(--text-sm);
+      color: var(--color-text-tertiary);
+    }
+
+    @media (max-width: 768px) {
+      .cta-band__title {
+        font-size: var(--text-3xl);
+      }
+    }
+
+    /* ==============================
+       FAQ
+       ============================== */
+    .faq {
+      padding: var(--space-12) 0;
+    }
+
+    .faq__inner {
+      display: grid;
+      grid-template-columns: 1fr 1.5fr;
+      gap: var(--space-10);
+      align-items: start;
+    }
+
+    .faq__label {
+      font-size: var(--text-sm);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--color-action-primary);
+      margin-bottom: var(--space-4);
+    }
+
+    .faq__title {
+      font-family: var(--font-display);
+      font-size: var(--text-4xl);
+      font-weight: 400;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      margin-bottom: var(--space-4);
+    }
+
+    .faq__subtitle {
+      font-size: var(--text-base);
+      color: var(--color-text-secondary);
+      line-height: 1.6;
+    }
+
+    .faq__list {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .faq-item {
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .faq-item:first-child {
+      border-top: 1px solid var(--color-border);
+    }
+
+    .faq-item__trigger {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      padding: var(--space-5) 0;
+      font-family: var(--font-body);
+      font-size: var(--text-base);
+      font-weight: 600;
+      color: var(--color-text-primary);
+      background: none;
+      border: none;
+      cursor: pointer;
+      text-align: left;
+      gap: var(--space-4);
+    }
+
+    .faq-item__trigger:focus-visible {
+      outline: 2px solid var(--color-action-primary);
+      outline-offset: 2px;
+      border-radius: 2px;
+    }
+
+    .faq-item__icon {
+      flex-shrink: 0;
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: var(--text-lg);
+      color: var(--color-text-tertiary);
+      transition: transform var(--duration-base) var(--ease-out);
+    }
+
+    .faq-item.is-open .faq-item__icon {
+      transform: rotate(45deg);
+    }
+
+    .faq-item__content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height var(--duration-slow) var(--ease-in-out);
+    }
+
+    .faq-item.is-open .faq-item__content {
+      max-height: 300px;
+    }
+
+    .faq-item__answer {
+      padding-bottom: var(--space-5);
+      font-size: var(--text-base);
+      line-height: 1.7;
+      color: var(--color-text-secondary);
+    }
+
+    @media (max-width: 768px) {
+      .faq__inner {
+        grid-template-columns: 1fr;
+        gap: var(--space-8);
+      }
+      .faq__title {
+        font-size: var(--text-3xl);
+      }
+    }
+
+    /* ==============================
+       FINAL CTA
+       ============================== */
+    .final-cta {
+      padding: var(--space-16) 0;
+      text-align: center;
+      background: var(--color-bg-primary);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .final-cta::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 600px;
+      height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, var(--color-bg-highlight) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .final-cta__inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .final-cta__title {
+      font-family: var(--font-display);
+      font-size: var(--text-5xl);
+      font-weight: 400;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      margin-bottom: var(--space-5);
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .final-cta__title em {
+      font-style: italic;
+      color: var(--color-action-primary);
+    }
+
+    .final-cta__subtitle {
+      font-size: var(--text-lg);
+      color: var(--color-text-secondary);
+      margin-bottom: var(--space-8);
+      max-width: 480px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .final-cta__form-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--space-3);
+    }
+
+    @media (max-width: 768px) {
+      .final-cta {
+        padding: var(--space-12) 0;
+      }
+      .final-cta__title {
+        font-size: var(--text-3xl);
+      }
+    }
+
+    /* ==============================
+       FOOTER
+       ============================== */
+    .footer {
+      padding: var(--space-8) 0;
+      border-top: 1px solid var(--color-border);
+    }
+
+    .footer__inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: var(--space-4);
+    }
+
+    .footer__left {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-1);
+    }
+
+    .footer__logo {
+      font-family: var(--font-display);
+      font-size: var(--text-lg);
+    }
+
+    .footer__copy {
+      font-size: var(--text-sm);
+      color: var(--color-text-tertiary);
+    }
+
+    .footer__links {
+      display: flex;
+      align-items: center;
+      gap: var(--space-5);
+      list-style: none;
+    }
+
+    .footer__link {
+      font-size: var(--text-sm);
+      color: var(--color-text-secondary);
+      transition: color var(--duration-fast) var(--ease-out);
+    }
+
+    .footer__link:hover {
+      color: var(--color-text-primary);
+    }
+
+    .footer__socials {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+    }
+
+    .footer__social {
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background: var(--color-bg-secondary);
+      border: 1px solid var(--color-border);
+      font-size: var(--text-sm);
+      color: var(--color-text-secondary);
+      transition: background var(--duration-fast) var(--ease-out),
+                  color var(--duration-fast) var(--ease-out),
+                  border-color var(--duration-fast) var(--ease-out);
+    }
+
+    .footer__social:hover {
+      background: var(--color-text-primary);
+      color: var(--color-text-inverse);
+      border-color: var(--color-text-primary);
+    }
+
+    .footer__social:focus-visible {
+      outline: 2px solid var(--color-action-primary);
+      outline-offset: 2px;
+    }
+
+    @media (max-width: 768px) {
+      .footer__inner {
+        flex-direction: column;
+        text-align: center;
+      }
+      .footer__links {
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ==============================
+       NAVIGATION
+       ============================== -->
+  <nav class="nav" role="navigation" aria-label="Primary navigation">
+    <div class="container nav__inner">
+      <a href="#" class="nav__logo" aria-label="The Learning Lab — Home">The Learning Lab</a>
+
+      <button
+        class="nav__mobile-toggle"
+        aria-expanded="false"
+        aria-controls="nav-menu"
+        aria-label="Open navigation menu"
+      >
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <line x1="3" y1="12" x2="21" y2="12"/>
+          <line x1="3" y1="18" x2="21" y2="18"/>
+        </svg>
+      </button>
+
+      <ul class="nav__links" id="nav-menu" role="list">
+        <li><a href="#about" class="nav__link">About</a></li>
+        <li><a href="#posts" class="nav__link">Top Picks</a></li>
+        <li><a href="#testimonials" class="nav__link">Readers</a></li>
+        <li><a href="#faq" class="nav__link">FAQ</a></li>
+        <li><a href="https://erinmerylstudy.substack.com/subscribe" class="nav__cta">Subscribe</a></li>
+      </ul>
+    </div>
+  </nav>
+
+
+  <!-- ==============================
+       HERO
+       ============================== -->
+  <header class="hero" id="hero">
+    <div class="container">
+      <div class="hero__badge">
+        <span class="hero__badge-dot" aria-hidden="true"></span>
+        Published every morning
+      </div>
+
+      <h1 class="hero__title">
+        Sharp ideas for people who <br> <em>won't outsource their thinking</em>
+      </h1>
+
+      <p class="hero__subtitle">
+        A daily newsletter for people who want to think better and make bigger impact in an age of AI by learning how their brain really works.
+      </p>
+
+      <div class="hero__form-wrapper">
+        <form
+          class="subscribe-form"
+          action="https://erinmerylstudy.substack.com/api/v1/free?nojs=true"
+          method="post"
+          aria-label="Subscribe to the newsletter"
+        >
+          <label for="hero-email" class="sr-only">Email address</label>
+          <input
+            type="email"
+            id="hero-email"
+            name="email"
+            class="subscribe-form__input"
+            placeholder="you@company.com"
+            required
+            autocomplete="email"
+          >
+          <button type="submit" class="subscribe-form__btn">Subscribe free</button>
+        </form>
+
+        <div class="hero__proof">
+          <div class="hero__avatars" aria-hidden="true">
+            <span class="hero__avatar">SL</span>
+            <span class="hero__avatar">MK</span>
+            <span class="hero__avatar">JD</span>
+            <span class="hero__avatar">AR</span>
+            <span class="hero__avatar">KP</span>
+          </div>
+          <span>Join 1,000+ readers</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+
+  <!-- ==============================
+       FEATURED / SOCIAL PROOF BAR
+       ============================== -->
+  <section class="featured" aria-label="Featured in">
+    <div class="container">
+      <p class="featured__label">Readers from</p>
+      <div class="featured__logos" aria-label="Companies where readers work">
+        <span class="featured__logo google">Google</span>
+        <span class="featured__logo cambridge">Cambridge University</span>
+        <span class="featured__logo openai">OpenAI</span>
+        <span class="featured__logo shopify">Shopify</span>
+        <span class="featured__logo harvard">Harvard</span>
+        <span class="featured__logo microsoft">Microsoft</span>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ==============================
+       ABOUT
+       ============================== -->
+  <section class="about" id="about">
+    <div class="container about__inner">
+      <div class="about__image-wrapper">
+       <!-- <div class="about__image-placeholder" aria-label="Photo of the author">
+          Your photo
+        </div> --> 
+        <img src="profile.jpg" alt="Erin Meryl, author of The Learning Lab" class="about__image" loading="lazy"> 
+      </div>
+
+      <div class="about__content">
+        <p class="about__label">About me</p>
+        <h2 class="about__title">I'm Erin Meryl. I've helped <em>over 450k people</em> become better learners.</h2>
+        <p class="about__text">
+          I speak to an audience of hundreds of thousands of learners every time I post about neuroscience and productivity. This means I spend a lot of time thinking about thinking, and, increasingly, about what happens to human cognition when we hand so much of it to machines.</p>
+        <p class="about__text">
+          I started The Learning Lab because I was genuinely worried. Not in a Luddite way - I use AI tools every day and find them extraordinary - but I was watching people around me, smart people, slowly stop wrestling with difficult ideas. Stop sitting in the discomfort of not knowing. And I knew I had to do something to change that.</p>
+        <p class="about__text">Every day, I take the latest developments in productivity, AI, and our understanding of human cognition, and distill it into actionable insights for my readers, so they can become lifelong learners.</p>
+        <div class="about__stats">
+          <div>
+            <p class="about__stat-number">1k+</p>
+            <p class="about__stat-label">Subscribers</p>
+          </div>
+          <div>
+            <p class="about__stat-number">20+</p>
+            <p class="about__stat-label">Issues published</p>
+          </div>
+          <div>
+            <p class="about__stat-number">89%</p>
+            <p class="about__stat-label">Open rate</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ==============================
+       WHAT YOU GET
+       ============================== -->
+  <section class="features" id="features">
+    <div class="container">
+      <div class="features__header">
+        <p class="features__label">What you get</p>
+        <h2 class="features__title">Every issue earns its place in your inbox <br><em>and in your brain</em></h2>
+      </div>
+
+      <div class="features__grid">
+        <article class="feature-card">
+          <div class="feature-card__icon" aria-hidden="true">⌖</div>
+          <h3 class="feature-card__title">One core idea</h3>
+          <p class="feature-card__text">
+            Each issue is built around a single, actionable insight.
+          </p>
+        </article>
+
+        <article class="feature-card">
+          <div class="feature-card__icon" aria-hidden="true">⛰︎</div>
+          <h3 class="feature-card__title">Real applications</h3>
+          <p class="feature-card__text">
+            Detailed breakdowns why these insights matter, and how to apply them.
+          </p>
+        </article>
+
+        <article class="feature-card">
+          <div class="feature-card__icon" aria-hidden="true">⏱</div>
+          <h3 class="feature-card__title">5-minute reads</h3>
+          <p class="feature-card__text">
+            You'll finish each issue feeling smarter, never drained.
+          </p>
+        </article>
+
+        <article class="feature-card">
+          <div class="feature-card__icon" aria-hidden="true">모</div>
+          <h3 class="feature-card__title">Useful resources</h3>
+          <p class="feature-card__text">
+            Curated links to tools, articles, and references.
+          </p>
+        </article>
+
+        <article class="feature-card">
+          <div class="feature-card__icon" aria-hidden="true">🗨️</div>
+          <h3 class="feature-card__title">Honest takes</h3>
+          <p class="feature-card__text">
+            What is going on in my head, largely unfiltered.
+          </p>
+        </article>
+
+        <article class="feature-card">
+          <div class="feature-card__icon" aria-hidden="true">✉︎</div>
+          <h3 class="feature-card__title">Subscriber extras</h3>
+          <p class="feature-card__text">
+            Deep dives, templates, frameworks. The kind of thing consultants charge $100/hr to explain ;)
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ==============================
+       LATEST POSTS
+       ============================== -->
+  <section class="posts" id="posts">
+    <div class="container">
+      <div class="posts__header">
+        <div>
+          <p class="posts__label">My favourite issues</p>
+          <h2 class="posts__title">Recent writing</h2>
+        </div>
+        <a href="https://erinmerylstudy.substack.com/archive" class="posts__archive-link" target="_blank" rel="noopener">
+          View full archive →
+        </a>
+      </div>
+
+      <div class="posts__list" role="list">
+        <a href="https://erinmerylstudy.substack.com/p/post-slug-1" class="post-item" role="listitem" target="_blank" rel="noopener">
+          <time class="post-item__date" datetime="2025-01-14">Feb 25, 2026</time>
+          <h3 class="post-item__title">what is left of us when the machines get better?</h3>
+          <span class="post-item__arrow" aria-hidden="true">→</span>
+        </a>
+
+        <a href="https://erinmerylstudy.substack.com/p/on-restraint-ambition-and-the-space" class="post-item" role="listitem" target="_blank" rel="noopener">
+          <time class="post-item__date" datetime="2025-01-10">Feb 5, 2026</time>
+          <h3 class="post-item__title">on restraint, ambition, and the space between</h3>
+          <span class="post-item__arrow" aria-hidden="true">→</span>
+        </a>
+
+        <a href="https://erinmerylstudy.substack.com/p/my-biggest-fear-is-being-average" class="post-item" role="listitem" target="_blank" rel="noopener">
+          <time class="post-item__date" datetime="2025-01-07">Jan 10, 2026</time>
+          <h3 class="post-item__title">my biggest fear is being average</h3>
+          <span class="post-item__arrow" aria-hidden="true">→</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ==============================
+       TESTIMONIALS
+       ============================== -->
+  <section class="testimonials" id="testimonials">
+    <div class="container">
+      <div class="testimonials__header">
+        <p class="testimonials__label">Reader love</p>
+        <h2 class="testimonials__title">Don't take my word for it</h2>
+      </div>
+
+      <div class="testimonials__grid">
+        <article class="testimonial-card">
+          <div class="testimonial-card__stars" aria-label="5 out of 5 stars">★★★★★</div>
+          <blockquote class="testimonial-card__quote">
+            "I wish I wrote this. I forward a new issue to my team all the time - this is the newsletter that will make you rethink your approach to learning."
+          </blockquote>
+          <div class="testimonial-card__author">
+            <div class="testimonial-card__avatar" aria-hidden="true">SL</div>
+            <div>
+              <p class="testimonial-card__handle">Creative Lab @ Google</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="testimonial-card">
+          <div class="testimonial-card__stars" aria-label="5 out of 5 stars">★★★★★</div>
+          <blockquote class="testimonial-card__quote">
+            "Finally, a newsletter that doesn't just tell me what to learn to stay ahead, but actually helps me understand why. It's like having a mentor in my inbox."
+          </blockquote>
+          <div class="testimonial-card__author">
+            <div class="testimonial-card__avatar" aria-hidden="true">MK</div>
+            <div>
+              <p class="testimonial-card__handle">Researcher @ University of Cambridge</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="testimonial-card">
+          <div class="testimonial-card__stars" aria-label="5 out of 5 stars">★★★★★</div>
+          <blockquote class="testimonial-card__quote">
+            "I read this before class every morning and it really makes me think deeper about how I want to learn, and what I want to create."
+          </blockquote>
+          <div class="testimonial-card__author">
+            <div class="testimonial-card__avatar" aria-hidden="true">JR</div>
+            <div>
+              <p class="testimonial-card__handle">Student @ Harvard</p>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ==============================
+       MID-PAGE CTA BAND
+       ============================== -->
+  <section class="cta-band" aria-label="Subscribe call to action">
+    <div class="container">
+      <h2 class="cta-band__title">Ready to read something <em>worth</em> your time?</h2>
+      <p class="cta-band__subtitle">
+        Free, daily, and unsubscribe whenever you want. <br>No hard feelings ;)
+      </p>
+      <div class="cta-band__form-wrapper">
+        <form
+          class="subscribe-form"
+          action="https://erinmerylstudy.substack.com/api/v1/free?nojs=true"
+          method="post"
+          aria-label="Subscribe to the newsletter"
+        >
+          <label for="mid-email" class="sr-only">Email address</label>
+          <input
+            type="email"
+            id="mid-email"
+            name="email"
+            class="subscribe-form__input"
+            placeholder="you@company.com"
+            required
+            autocomplete="email"
+          >
+          <button type="submit" class="subscribe-form__btn">Subscribe free</button>
+        </form>
+        <p class="cta-band__note">Become a better learner in an age of AI.</p>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ==============================
+       FAQ
+       ============================== -->
+  <section class="faq" id="faq">
+    <div class="container faq__inner">
+      <div class="faq__left">
+        <p class="faq__label">FAQ</p>
+        <h2 class="faq__title">Common questions</h2>
+        <p class="faq__subtitle">Everything you might want to know before subscribing. <br>If it's not here, just reply to any issue; I read every email.</p>
+      </div>
+
+      <div class="faq__list">
+        <div class="faq-item">
+          <button class="faq-item__trigger" aria-expanded="false" aria-controls="faq-1">
+            <span>What exactly will I get?</span>
+            <span class="faq-item__icon" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-item__content" id="faq-1" role="region">
+            <p class="faq-item__answer">
+              An email every single day, with a mix of insights, tips, resources, and personal reflections. Each takes about 5 minutes to read. You'll also get occasional subscriber-only deep dives and templates.
+            </p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-item__trigger" aria-expanded="false" aria-controls="faq-2">
+            <span>Is it really free?</span>
+            <span class="faq-item__icon" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-item__content" id="faq-2" role="region">
+            <p class="faq-item__answer">
+              Yes! The core newsletter is 100% free and always will be. There is a paid tier for bonus content, but the main issues will always remain free. I'd rather have 1,000 readers who trust me than 50 who pay me.
+            </p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-item__trigger" aria-expanded="false" aria-controls="faq-3">
+            <span>Who is this for?</span>
+            <span class="faq-item__icon" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-item__content" id="faq-3" role="region">
+            <p class="faq-item__answer">
+              Everyone: founders, students, workers, educators; anyone who cares about preserving and enhancing their ability to learn in an age of AI. If you've ever been curious about the impact of AI on learning — you'll like this.
+            </p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-item__trigger" aria-expanded="false" aria-controls="faq-4">
+            <span>Can I share issues with my friends?</span>
+            <span class="faq-item__icon" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-item__content" id="faq-4" role="region">
+            <p class="faq-item__answer">
+              Absolutely — please do! Every issue has a share link :) 
+            </p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-item__trigger" aria-expanded="false" aria-controls="faq-5">
+            <span>How do I unsubscribe?</span>
+            <span class="faq-item__icon" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-item__content" id="faq-5" role="region">
+            <p class="faq-item__answer">
+              One click at the bottom of every email. If it's not useful, you should leave. 
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ==============================
+       FINAL CTA
+       ============================== -->
+  <section class="final-cta" aria-label="Final subscribe call to action">
+    <div class="container final-cta__inner">
+      <h2 class="final-cta__title">
+        Your brain deserves <em>better</em>
+      </h2>
+      <p class="final-cta__subtitle">
+        Join 1,000+ founders, students, and lifelong learners who start their day with sharper thinking. It takes 10 seconds.
+      </p>
+      <div class="final-cta__form-wrapper">
+        <form
+          class="subscribe-form"
+          action="https://erinmerylstudy.substack.com/api/v1/free?nojs=true"
+          method="post"
+          aria-label="Subscribe to the newsletter"
+        >
+          <label for="final-email" class="sr-only">Email address</label>
+          <input
+            type="email"
+            id="final-email"
+            name="email"
+            class="subscribe-form__input"
+            placeholder="you@company.com"
+            required
+            autocomplete="email"
+          >
+          <button type="submit" class="subscribe-form__btn">Subscribe free</button>
+        </form>
+        <p class="cta-band__note">Free forever. Unsubscribe anytime. No nonsense.</p>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ==============================
+       FOOTER
+       ============================== -->
+  <footer class="footer" role="contentinfo">
+    <div class="container footer__inner">
+      <div class="footer__left">
+        <a href="#" class="footer__logo">The Learning Lab</a>
+        <p class="footer__copy">&copy; 2026 Erin McGurk. All rights reserved.</p>
+      </div>
+
+      <ul class="footer__links" role="list">
+        <li><a href="https://erinmerylstudy.substack.com/archive" class="footer__link" target="_blank" rel="noopener">Top Picks</a></li>
+        <li><a href="https://erinmerylstudy.substack.com/about" class="footer__link" target="_blank" rel="noopener">About</a></li>
+        <li><a href="https://erinmerylstudy.substack.com/privacy" class="footer__link" target="_blank" rel="noopener">Privacy</a></li>
+        <li><a href="mailto:hello@yourdomain.com" class="footer__link">Contact</a></li>
+      </ul>
+
+      <div class="footer__socials">
+        <a
+          href="https://instagram.com/erinmerylstudy"
+          class="footer__social"
+          aria-label="Follow on Instagram"
+          target="_blank"
+          rel="noopener"
+        >
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+          </svg>
+        </a>
+        <a
+          href="https://linkedin.com/in/erin-mcgurk"
+          class="footer__social"
+          aria-label="Connect on LinkedIn"
+          target="_blank"
+          rel="noopener"
+        >
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+          </svg>
+        </a>
+        <a
+          href="https://erinmerylstudy.substack.com"
+          class="footer__social"
+          aria-label="Read on Substack"
+          target="_blank"
+          rel="noopener"
+        >
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M22.539 8.242H1.46V5.406h21.08v2.836zM1.46 10.812V24l9.6-5.55 9.54 5.55V10.812H1.46zM22.54 0H1.46v2.836h21.08V0z"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+
+  <!-- ==============================
+       JAVASCRIPT
+       ============================== -->
+  <script>
+    // ---- Mobile Navigation Toggle ----
+    const mobileToggle = document.querySelector('.nav__mobile-toggle');
+    const navMenu = document.getElementById('nav-menu');
+
+    if (mobileToggle && navMenu) {
+      mobileToggle.addEventListener('click', () => {
+        const isOpen = navMenu.classList.toggle('is-open');
+        mobileToggle.setAttribute('aria-expanded', String(isOpen));
+        mobileToggle.setAttribute(
+          'aria-label',
+          isOpen ? 'Close navigation menu' : 'Open navigation menu'
+        );
+      });
+
+      // Close menu when a nav link is clicked
+      navMenu.querySelectorAll('.nav__link, .nav__cta').forEach(link => {
+        link.addEventListener('click', () => {
+          navMenu.classList.remove('is-open');
+          mobileToggle.setAttribute('aria-expanded', 'false');
+          mobileToggle.setAttribute('aria-label', 'Open navigation menu');
+        });
+      });
+
+      // Close on Escape key
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && navMenu.classList.contains('is-open')) {
+          navMenu.classList.remove('is-open');
+          mobileToggle.setAttribute('aria-expanded', 'false');
+          mobileToggle.setAttribute('aria-label', 'Open navigation menu');
+          mobileToggle.focus();
+        }
+      });
+    }
+
+
+    // ---- FAQ Accordion ----
+    const faqItems = document.querySelectorAll('.faq-item');
+
+    faqItems.forEach(item => {
+      const trigger = item.querySelector('.faq-item__trigger');
+      const content = item.querySelector('.faq-item__content');
+
+      if (trigger && content) {
+        trigger.addEventListener('click', () => {
+          const isOpen = item.classList.contains('is-open');
+
+          // Close all others (single-open accordion)
+          faqItems.forEach(otherItem => {
+            if (otherItem !== item && otherItem.classList.contains('is-open')) {
+              otherItem.classList.remove('is-open');
+              const otherTrigger = otherItem.querySelector('.faq-item__trigger');
+              if (otherTrigger) otherTrigger.setAttribute('aria-expanded', 'false');
+            }
+          });
+
+          // Toggle current
+          item.classList.toggle('is-open');
+          trigger.setAttribute('aria-expanded', String(!isOpen));
+        });
+      }
+    });
+
+
+    // ---- Subscribe Form Enhancement ----
+    // Intercept native form submission to provide inline feedback
+    // while gracefully degrading to Substack's nojs endpoint
+    document.querySelectorAll('.subscribe-form').forEach(form => {
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const input = form.querySelector('.subscribe-form__input');
+        const btn = form.querySelector('.subscribe-form__btn');
+        const email = input.value.trim();
+
+        if (!email) return;
+
+        // Store original states
+        const originalBtnText = btn.textContent;
+        const originalInputBorder = input.style.borderColor;
+
+        // Loading state
+        btn.textContent = 'Subscribing…';
+        btn.disabled = true;
+        btn.style.opacity = '0.7';
+        input.disabled = true;
+
+        try {
+          // Attempt Substack API call
+          const response = await fetch(form.action, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: new URLSearchParams({ email }),
+          });
+
+          // Success state
+          btn.textContent = '✓ Subscribed!';
+          btn.style.background = '#4CAF50';
+          btn.style.opacity = '1';
+          input.value = '';
+          input.style.borderColor = '#4CAF50';
+
+          // Reset after delay
+          setTimeout(() => {
+            btn.textContent = originalBtnText;
+            btn.style.background = '';
+            btn.disabled = false;
+            input.disabled = false;
+            input.style.borderColor = originalInputBorder;
+          }, 3000);
+
+        } catch (error) {
+          // If JS fetch fails, fall back to native form submission
+          // This handles CORS restrictions from Substack's API
+          btn.textContent = originalBtnText;
+          btn.style.opacity = '1';
+          btn.disabled = false;
+          input.disabled = false;
+
+          // Submit natively as fallback
+          form.submit();
+        }
+      });
+    });
+
+
+    // ---- Smooth Scroll for Anchor Links ----
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', (e) => {
+        const targetId = anchor.getAttribute('href');
+        if (targetId === '#') return;
+
+        const target = document.querySelector(targetId);
+        if (target) {
+          e.preventDefault();
+          const navHeight = document.querySelector('.nav')?.offsetHeight || 64;
+          const targetPosition = target.getBoundingClientRect().top + window.scrollY - navHeight - 24;
+
+          window.scrollTo({
+            top: targetPosition,
+            behavior: 'smooth'
+          });
+        }
+      });
+    });
+
+
+    // ---- Intersection Observer: Fade-in on Scroll ----
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -60px 0px'
+    };
+
+    // Only run animation if user hasn't opted out
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      const sections = document.querySelectorAll(
+        '.about, .features, .posts, .testimonials, .cta-band, .faq, .final-cta'
+      );
+
+      // Set initial hidden state
+      sections.forEach(section => {
+        section.style.opacity = '0';
+        section.style.transform = 'translateY(24px)';
+        section.style.transition = 'opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)';
+      });
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateY(0)';
+            observer.unobserve(entry.target);
+          }
+        });
+      }, observerOptions);
+
+      sections.forEach(section => observer.observe(section));
+    }
+  </script>
+
+</body>
+</html>
